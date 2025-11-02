@@ -74,7 +74,7 @@ const subSchema = new mongoose.Schema({
 
 }, {
     timeStamps: true
-});
+})
 
 const Subscription=new mongoose.model('User',subSchema);
 
