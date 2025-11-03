@@ -1,17 +1,13 @@
 import {Router} from "express";
+import {signIn, signOut, signUp} from "../Controllers/auth.controller.js";
 
 const authRoutes = Router();
 
-authRoutes.get("/sign-up", (req, res) => {
-    res.send("SignUp successfull");
-})
-authRoutes.post("/sign-in", (req, res) => {
-    res.send("SignIn successfull");
-})
-authRoutes.post("/sign-out", (req, res) => {
-    res.send("SignOut successfull");
-})
+authRoutes.post("/sign-up", signUp);
+authRoutes.post("/sign-in", signIn);
+authRoutes.post("/sign-out",signOut);
 
+//when navigated to those api-end points , logics from the controllers are to be performed
 
 
 
