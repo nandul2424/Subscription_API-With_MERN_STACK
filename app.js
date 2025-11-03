@@ -2,7 +2,7 @@ import express from "express";
 import {PORT}  from "./Config/env.js";
 import connectToDatabase from "./DB/mongodb.js";
 import errorHandler from "./Middlewares/error.middleware.js";
-
+import arcjetMiddleware from "./Middlewares/arcjet.middleware.js";
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.use("/api/v1/auth",authRoutes); //go to api/v1/auth endpoint for authRoutes
 app.use("/api/v1/subscriptions",subscriptionRoutes);
 app.use("/api/v1/users",userRoutes);
 app.use(errorHandler);
+app.use(arcjetMiddleware);
 
 
 app.get("/", (req, res) => {
