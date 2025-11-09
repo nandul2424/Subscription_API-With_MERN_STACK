@@ -3,11 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "jest": {
-    "testEnvironment": "node",
-    "transform": {},
-    "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
-  },
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
