@@ -5,8 +5,13 @@ import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "../Config/env.js";
 
 export const signUp = async (req, res, next) => {
+
     const session = await mongoose.startSession();
-    session.startTransaction();
+
+    if (process.env.NODE_ENV !== "test") {
+        session.startTransaction();
+    }
+
 
     try {
         const { name, email, password } = req.body;
@@ -51,10 +56,12 @@ export const signUp = async (req, res, next) => {
         });
 
     } catch (error) {
-        await session.abortTransaction();
-        session.endSession();
-        console.error("Signup Error:", error.message);
-        next(error);
+
+        if (process.env.NODE_ENV !== "test") {
+            await session.abortTransaction();
+            await session.endSession();
+        }
+
     }
 };
 

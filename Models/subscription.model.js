@@ -76,6 +76,7 @@ const subSchema = new mongoose.Schema({
     timeStamps: true
 })
 
-const Subscription=new mongoose.model('User',subSchema);
+const Subscription=new mongoose.model('Subscription',subSchema);
+//create and stores subscriptions in subscriptions collection
 
 export default Subscription;
