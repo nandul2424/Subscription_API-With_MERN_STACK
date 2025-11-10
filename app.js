@@ -12,12 +12,14 @@ import authRoutes from "./routes/auth.routes.js";
 import subscriptionRoutes from "./routes/subscription.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import authMiddleware from "./Middlewares/auth.middleware.js";
+import workflowRouter from "./routes/workflow.routes.js";
 
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/subscriptions", subscriptionRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/workflows", workflowRouter);
 
 
 app.use(errorHandler);
