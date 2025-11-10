@@ -3,6 +3,7 @@ import User from "../Models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "../Config/env.js";
+import {sendAccountCreatedEmail} from "../Config/nodemailer.js";
 
 export const signUp = async (req, res, next) => {
 
@@ -44,12 +45,14 @@ export const signUp = async (req, res, next) => {
             { expiresIn: JWT_EXPIRES_IN }
         );
 
+        await sendAccountCreatedEmail(newUser.email, newUser.name);
+
         await session.commitTransaction();
         session.endSession();
 
         res.status(201).json({
             success: true,
-            message: "User created successfully",
+            message: "User created successfully.. email sent!!",
             data: {
                 token,
             },

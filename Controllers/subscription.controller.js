@@ -1,13 +1,26 @@
-import subSchema from "../models/subscription.model.js";
+
 import Subscription from "../models/subscription.model.js";
+import {workflowClient} from "../Config/upstash.js";
+import {SERVER_URL} from "../Config/env.js";
 
 export const createSubscriptions=async(req,res,next)=>{
 
     try{
-        const newSubscription=await subSchema.create({
+        const newSubscription=await Subscription.create({
             ...req.body,
             user:req.user._id
-        })
+        });
+
+        const {workflowRunId}=await workflowClient.trigger({
+            url:`${SERVER_URL}/api/v1/subscriptions/reminder`,
+            body:{
+                subscriptionId:newSubscription.id
+            },
+            headers:{
+                "Content-Type":"application/json"
+            }
+
+        });
 
         res.status(201).json({
             status:"success",
